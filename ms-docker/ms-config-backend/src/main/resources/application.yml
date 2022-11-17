@@ -1,0 +1,27 @@
+server:
+  port: 8081
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          search-paths: config-data
+          uri: https://gitlab.com/ms-2022-02/ms-docker.git
+          username: ${GIT_USER}
+          password: ${GIT_PASSWORD}
+          timeout: 4
+          skipSslValidation: false
+    label: develop-en
+  security:
+    user:
+      name: root
+      password: s3cr3t
+  rabbitmq:
+    host: ms-rabbitmq-service-svc
+    port: 5672
+    username: guest
+    password: guest
+logging:
+  level:
+    root: INFO
+    org.springframework: INFO

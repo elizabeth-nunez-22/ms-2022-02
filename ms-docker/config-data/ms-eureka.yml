@@ -1,0 +1,19 @@
+#Application Configuration
+server:
+  port: 8099
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    fetch-registry: false
+    register-with-eureka: false
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n"
+  level:
+    root: INFO
+    org.springframework: INFO
+    com.netflix.eureka: DEBUG
+    com.netflix.discovery: DEBUG

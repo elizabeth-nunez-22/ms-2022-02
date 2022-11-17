@@ -1,0 +1,38 @@
+server:
+  port: 9090
+  error:
+    include-message: always
+    include-binding-errors: always
+spring:
+  config:
+    activate:
+      on-profile: dev
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: customer-service
+          uri: lb://ms-customer
+          predicates:
+            - Path=/customers/**
+        - id: product-service
+          uri: lb://ms-product
+          predicates:
+            - Path=/products/**
+        - id: shopping-service
+          uri: lb://ms-shopping
+          predicates:
+            - Path=/invoices/**
+        - id: security-service
+          uri: lb://ms-security
+          predicates:
+            - Path=/security/**
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n"
+eureka:
+    client:
+      serviceUrl:
+        defaultZone: http://ms-eureka-backend-svc:8099/eureka/
