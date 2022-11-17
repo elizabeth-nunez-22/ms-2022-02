@@ -46,7 +46,7 @@ logging:
   level:
     root: info
     org.springframework: info
-    academy.digitallab.store.customer: DEBUG
+    academy.digitallab.store.customer: INFO
 
 eureka:
   client:
