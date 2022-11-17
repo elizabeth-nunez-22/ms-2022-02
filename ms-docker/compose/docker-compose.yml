@@ -1,0 +1,36 @@
+version: "3.7"
+services:
+  registry: 
+    image: registry:2.7
+    container_name: registry-digitallab
+    ports:
+      - 5001:5001
+    networks:
+      - onlinestore
+    environment:
+     - REGISTRY_HTTP_ADDR=0.0.0.0:5001
+     - REGISTRY_AUTH=htpasswd
+     - REGISTRY_AUTH_HTPASSWD_REALM=Registry Realm
+     - REGISTRY_AUTH_HTPASSWD_PATH=/etc/docker/registry/htpasswd
+    volumes:
+      - ../registry:/var/lib/registry
+      - ./registry-config/credentials.yml:/etc/docker/registry/config.yml
+      - ./htpasswd:/etc/docker/registry/htpasswd
+  ui:
+    image: joxit/docker-registry-ui:latest
+    ports:
+      - 8071:80
+    networks:
+      - onlinestore
+    environment:
+      - REGISTRY_TITLE=My Private Docker Registry
+      #- REGISTRY_URL=http://registry-digitallab:5001
+      - NGINX_PROXY_PASS_URL=http://registry-digitallab:5001
+      - SINGLE_REGISTRY=false
+      - DELETE_IMAGES=true
+    depends_on:
+      - registry
+    
+networks:
+    onlinestore:
+        external: true

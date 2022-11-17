@@ -1,0 +1,12 @@
+version: '3.6' 
+services: 
+    redis-service:
+        image: registry.digitallab.academy:5001/redis-service:1.0.0
+        container_name: ms-redis-service-svc
+        ports:
+        - 8087:8087
+        networks:
+        - onlinestore
+networks:
+    onlinestore:
+        external: true

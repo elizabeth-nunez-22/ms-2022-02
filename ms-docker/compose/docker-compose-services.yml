@@ -1,0 +1,51 @@
+version: "3.7"
+services:
+    customer-service:
+        image: registry.digitallab.academy:5001/customer-service:1.0.2
+        container_name: ms-customer
+        environment:
+        - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+        - "SPRING_PROFILES_ACTIVE=dev"
+        networks:
+        - onlinestore
+        # ports:
+        #    - "8092:8092"
+    product-service:
+        image: registry.digitallab.academy:5001/product-service:1.0.1
+        container_name: ms-product
+        environment:
+        - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+        - "SPRING_PROFILES_ACTIVE=dev"
+        networks:
+        - onlinestore
+    shopping-service:
+        image: registry.digitallab.academy:5001/shopping-service:1.0.1
+        container_name: ms-shopping
+        environment:
+        - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+        - "SPRING_PROFILES_ACTIVE=dev"
+        networks:
+        - onlinestore
+        #ports:
+         # - "8093:8093"
+    security-service:
+        image: registry.digitallab.academy:5001/security-service:1.0.2
+        environment:
+        - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+        - "SPRING_PROFILES_ACTIVE=dev"
+        networks:
+        - onlinestore
+        # ports:
+        #    - "8095:8095"
+    gateway-service:
+        image: registry.digitallab.academy:5001/gateway-service:1.0.1
+        environment:
+        - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+        - "SPRING_PROFILES_ACTIVE=dev"
+        networks:
+        - onlinestore
+        ports:
+          - "9090:9090"
+networks:
+    onlinestore:
+        external: true

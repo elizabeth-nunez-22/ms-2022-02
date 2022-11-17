@@ -1,0 +1,16 @@
+version: "3.7"
+services:
+  config-service:
+    image: registry.digitallab.academy:5001/config-service:1.0.1
+    container_name: ms-config-backend-svc
+    environment:
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - GIT_USER=$GIT_USER
+      - GIT_PASSWORD=$GIT_PASSWORD
+    ports:
+      - 8081:8081
+    networks:
+      - onlinestore
+networks:
+    onlinestore:
+        external: true

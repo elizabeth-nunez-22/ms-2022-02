@@ -1,0 +1,14 @@
+version: "3.7"
+services:
+  eureka-service:
+    image: registry.digitallab.academy:5001/eureka-service:1.0.0
+    container_name: ms-eureka-backend-svc
+    environment:
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+      - 8099:8099
+    networks:
+      - onlinestore
+networks:
+    onlinestore:
+        external: true
